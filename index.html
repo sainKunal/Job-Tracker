@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application Tracker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+    <nav class="navbar">
+        <h1>
+            <i class="fas fa-briefcase"></i>
+            Job Application Tracker
+        </h1>
+    </nav>
+
+    <div class="container">
+        <div class="dashboard">
+            <div class="stat-card">
+                <div class="stat-icon" style="background: var(--primary)">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="stat-label">Total Applications</div>
+                <div class="stat-value" id="totalApplications">0</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon" style="background: var(--success)">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-label">Success Rate</div>
+                <div class="stat-value" id="successRate">0%</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon" style="background: var(--warning)">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-label">Pending Responses</div>
+                <div class="stat-value" id="pendingResponses">0</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon" style="background: var(--secondary)">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="stat-label">Upcoming Interviews</div>
+                <div class="stat-value" id="upcomingInterviews">0</div>
+            </div>
+        </div>
+
+        <div class="add-job-section">
+            <h2 class="form-title">
+                <i class="fas fa-plus-circle"></i>
+                Add New Application
+            </h2>
+            <form id="addJobForm" class="form-grid">
+                <div class="form-group">
+                    <label for="companyName">Company Name</label>
+                    <input type="text" id="companyName" required>
+                </div>
+                <div class="form-group">
+                    <label for="jobTitle">Position</label>
+                    <input type="text" id="jobTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" required>
+                </div>
+                <div class="form-group">
+                    <label for="salary">Salary Range</label>
+                    <input type="text" id="salary">
+                </div>
+                <div class="form-group">
+                    <label for="applicationDate">Application Date</label>
+                    <input type="date" id="applicationDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select id="status" required>
+                        <option value="applied">Applied</option>
+                        <option value="interview">Interview</option>
+                        <option value="offer">Offer</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="notes">Notes</label>
+                    <textarea id="notes" rows="3"></textarea>
+                </div>
+                <div class="form-group" style="grid-column: 1 / -1;">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        Add Application
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="filter-section">
+            <div class="search-bar">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchInput" placeholder="Search applications...">
+            </div>
+            <button class="filter-btn active" data-status="all">All</button>
+            <button class="filter-btn" data-status="applied">Applied</button>
+            <button class="filter-btn" data-status="interview">Interview</button>
+            <button class="filter-btn" data-status="offer">Offer</button>
+            <button class="filter-btn" data-status="rejected">Rejected</button>
+            <div class="action-buttons">
+                <button class="btn btn-primary" id="openAddJobBtn">
+                    <i class="fas fa-plus"></i>
+                    Add Application
+                </button>
+                <button class="btn btn-primary" id="openSearchJobsBtn">
+                    <i class="fas fa-search"></i>
+                    Search Jobs
+                </button>
+            </div>
+        </div>
+
+        <div class="jobs-grid" id="jobsContainer">
+           
+            <div class="empty-state">
+                <i class="fas fa-folder-open fa-3x"></i>
+                <p>No applications yet. Start by adding your first job application!</p>
+            </div>
+        </div>
+    </div>
+
+    <dialog id="addJobDialog" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="form-title">
+                    <i class="fas fa-plus-circle"></i>
+                    Add New Application
+                </h2>
+                <button class="close-btn" onclick="closeAddJobDialog()">×</button>
+            </div>
+            <form id="addJobForm" class="form-grid">
+                <div class="form-group">
+                    <label for="companyName">Company Name</label>
+                    <input type="text" id="companyName" required>
+                </div>
+                <div class="form-group">
+                    <label for="jobTitle">Position</label>
+                    <input type="text" id="jobTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" required>
+                </div>
+                <div class="form-group">
+                    <label for="salary">Salary Range</label>
+                    <input type="text" id="salary">
+                </div>
+                <div class="form-group">
+                    <label for="applicationDate">Application Date</label>
+                    <input type="date" id="applicationDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select id="status" required>
+                        <option value="applied">Applied</option>
+                        <option value="interview">Interview</option>
+                        <option value="offer">Offer</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="notes">Notes</label>
+                    <textarea id="notes" rows="3"></textarea>
+                </div>
+                <div class="form-group" style="grid-column: 1 / -1;">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        Add Application
+                    </button>
+                </div>
+            </form>
+        </div>
+    </dialog>
+
+    <dialog id="searchJobsDialog" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="form-title">
+                    <i class="fas fa-search"></i>
+                    Search Jobs
+                </h2>
+                <button class="close-btn" onclick="closeSearchDialog()">×</button>
+            </div>
+            <div class="search-jobs-form">
+                <div class="form-group">
+                    <input type="text" id="apiSearchInput" placeholder="Enter job title, company, or keywords...">
+                    <button class="btn btn-primary" id="searchJobsBtn">
+                        <i class="fas fa-search"></i>
+                        Search
+                    </button>
+                </div>
+                <div id="apiJobResults" class="api-jobs-grid"></div>
+            </div>
+        </div>
+    </dialog>
+
+    <script src="script2.js"></script>
+</body>
+</html>
